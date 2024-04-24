@@ -15,7 +15,6 @@
     UserRepo userRepo = new UserRepo();
     List<User> users = userRepo.findAll();
 %>
-
 <nav class="navbar navbar-inverse">
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
@@ -34,8 +33,6 @@
         </ul>
     </div>
 </nav>
-
-
 <div class="row">
         <div class="col-md-10 offset2">
             <table class="table table-striped m-2">
@@ -60,20 +57,16 @@
                     <td>
                         <a href="/changes?userId=<%= user.getId()%>" class="btn btn-success">OUT</a>
                         <a href="/change?userId=<%= user.getId()%>" class="btn btn-info">IN</a>
-
                     </td>
                     <td>
                         <a href="/deleteUser?userId=<%= user.getId()%>" class="btn btn-danger">Delete</a>
-
                     </td>
-
                 </tr>
                 <%}%>
                 </tbody>
             </table>
         </div>
     </div>
-
 
 <div class="container mt-5">
     <div class="row justify-content-center">
