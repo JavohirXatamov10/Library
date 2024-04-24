@@ -1,9 +1,6 @@
 package org.example.kutubxona.repo;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -38,8 +35,13 @@ public class BaseRepo<T, I> {
         commit();
     }
 
-    public List<T> findAll() {
-        return entityManager.createQuery("from " + persistenceClass.getSimpleName(), persistenceClass).getResultList();
+    public List<T> findAll(int page, String search) {
+//        return entityManager.createQuery("from " + persistenceClass.getSimpleName(), persistenceClass).getResultList();
+        TypedQuery<T> typedQuery = entityManager.createQuery("SELECT t FROM " + persistenceClass.getSimpleName() + " t WHERE t.firstName ILIKE :search or t.lastName ilike :search", persistenceClass);
+        typedQuery.setParameter("search", "%" + search + "%");
+        typedQuery.setMaxResults(3);
+        typedQuery.setFirstResult((page - 1) * 3);
+        return typedQuery.getResultList();
     }
 
     public T findById(I id) {

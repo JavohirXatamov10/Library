@@ -1,6 +1,7 @@
 <%@ page import="org.example.kutubxona.repo.UserRepo" %>
 <%@ page import="org.example.kutubxona.entity.User" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Objects" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,19 +13,22 @@
 </head>
 <body>
 <%
+    String search = Objects.requireNonNullElse(request.getParameter("search"),"");
+    int totalPageAmount=UserRepo.totalPageAmount(search);
+    int p = Integer.parseInt(Objects.requireNonNullElse(request.getParameter("page"), "1"));
     UserRepo userRepo = new UserRepo();
-    List<User> users = userRepo.findAll();
+    List<User> users = userRepo.findAll(p,search);
 %>
 <nav class="navbar navbar-inverse">
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
             <li>
-                <form class="navbar-form" role="search" action="" method="post">
+                <form class="navbar-form" role="search" action="" method="get">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search" name="query" value="">
+                        <input type="text" class="form-control" placeholder="Search" name="search" value="<%=search%>">
                     </div>
-                    <button type="submit" class="btn btn-default">Search</button>
-                </form>
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </form>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right my-3">
@@ -53,7 +57,7 @@
                     <td><%=user.getFirstName()%></td>
                     <td><%=user.getLastName()%></td>
                     <td><%=user.getBookName()%></td>
-                    <td><a href="/isBookTake" class="btn btn-lg">Book</a></td>
+                    <td><a href="../admin/book.jsp" class="btn btn-lg">Book</a></td>
                     <td>
                         <a href="/changes?userId=<%= user.getId()%>" class="btn btn-success">OUT</a>
                         <a href="/change?userId=<%= user.getId()%>" class="btn btn-info">IN</a>
@@ -73,11 +77,18 @@
         <div class="col-md-12"> <!-- Full-width column -->
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    <%if (p!=1){%>
+                        <li class="page-item"><a class="page-link" href="?page=<%=p-1%>&search<%=search%>">Previous</a></li>
+                    <%}%>
+                    <%for (int i = 1; i <=totalPageAmount ; i++) { %>
+
+                    <li class="page-item  <%=p==i ? "active": "" %>"><a class="page-link" href="?page=<%=i%>&search<%=search%>"><%=i%></a></li>
+
+                    <%}%>
+                    <%if (p!=totalPageAmount){%>
+                    <li class="page-item"><a class="page-link" href="?page=<%=p+1%>&search<%=search%>">Next</a></li>
+                    <%}%>
+
                 </ul>
             </nav>
         </div>
