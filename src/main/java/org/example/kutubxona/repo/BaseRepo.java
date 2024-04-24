@@ -46,16 +46,10 @@ public class BaseRepo<T, I> {
         return entityManager.find(persistenceClass, id);
     }
     public void delete(I id) {
-       // entityManager.remove(entityManager.find(persistenceClass, id));
-
-        T entity = entityManager.find(persistenceClass, id);
-        if (entity != null) {
-            // If the entity exists, remove it
-            entityManager.remove(entity);
-        } else {
-            // Handle the case when the entity does not exist
-            throw new EntityNotFoundException("Entity with ID " + id + " not found");
-        }
+        begin();
+        T t = entityManager.find(persistenceClass, id);
+        entityManager.remove(t);
+        commit();
     }
 }
 
