@@ -57,7 +57,7 @@
                     <td><%=user.getFirstName()%></td>
                     <td><%=user.getLastName()%></td>
                     <td><%=user.getBookName()%></td>
-                    <td><a href="../admin/book.jsp" class="btn btn-lg">Book</a></td>
+                    <td><a href="../admin/book.jsp?userId=<%= user.getId()%>" class="btn btn-lg">Book</a></td>
                     <td>
                         <a href="/changes?userId=<%= user.getId()%>" class="btn btn-success">OUT</a>
                         <a href="/change?userId=<%= user.getId()%>" class="btn btn-info">IN</a>
