@@ -26,7 +26,7 @@ public class User {
     private String firstName;
     @NotBlank
     private String lastName;
-    @ManyToOne
+    @OneToOne (cascade = CascadeType.PERSIST)
     private Book book;
     @Enumerated(EnumType.STRING)
     private Status status;

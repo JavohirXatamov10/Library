@@ -20,10 +20,10 @@
                     <h3 class="text-center">Enter Verification Code</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/chack/emailCode" method="POST">
+                    <form action="/check/emailCode" method="POST">
                         <div class="form-group">
                             <label for="code">Verification Code</label>
-                            <input type="number" class="form-control" id="code" name="code" required>
+                            <input type="text" class="form-control" id="code" name="codeEmail" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
