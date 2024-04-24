@@ -2,6 +2,7 @@ package org.example.kutubxona.repo;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Persistence;
 
 import java.lang.reflect.ParameterizedType;
@@ -45,7 +46,16 @@ public class BaseRepo<T, I> {
         return entityManager.find(persistenceClass, id);
     }
     public void delete(I id) {
-        entityManager.remove(entityManager.find(persistenceClass, id));
+       // entityManager.remove(entityManager.find(persistenceClass, id));
+
+        T entity = entityManager.find(persistenceClass, id);
+        if (entity != null) {
+            // If the entity exists, remove it
+            entityManager.remove(entity);
+        } else {
+            // Handle the case when the entity does not exist
+            throw new EntityNotFoundException("Entity with ID " + id + " not found");
+        }
     }
 }
 

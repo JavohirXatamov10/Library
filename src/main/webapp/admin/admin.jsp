@@ -12,7 +12,7 @@
 <body>
 <%
     UserRepo userRepo = new UserRepo();
-    List<User> allUsers = userRepo.findAll();
+    List<User> users = userRepo.findAll();
 %>
 
 <nav class="navbar navbar-inverse">
@@ -50,7 +50,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Populate table rows dynamically based on the data -->
+                <%for (User user : users) { %>
+                <tr>
+                    <td><%=user.getFirstName()%></td>
+                    <td><%=user.getLastName()%></td>
+                    <td><%=user.getBookName()%></td>
+                    <td><a href="">Book</a></td>
+                    <td>
+                        <a href="/changeStatus?userId=<%= user.getId()%>" class="btn btn-success">OUT</a>
+                        <a href="/changeStatus?userId=<%= user.getId()%>" class="btn btn-info">IN</a>
+
+                    </td>
+                    <td>
+                        <a href="/delete?userId=<%= user.getId()%>" class="btn btn-danger">Delete</a>
+                    </td>
+
+                </tr>
+                <%}%>
                 </tbody>
             </table>
         </div>
