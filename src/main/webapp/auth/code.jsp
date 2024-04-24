@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Code</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
@@ -20,10 +20,10 @@
                     <h3 class="text-center">Enter Verification Code</h3>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="/chack/emailCode" method="POST">
                         <div class="form-group">
                             <label for="code">Verification Code</label>
-                            <input type="text" class="form-control" id="code" name="code" required>
+                            <input type="number" class="form-control" id="code" name="code" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
