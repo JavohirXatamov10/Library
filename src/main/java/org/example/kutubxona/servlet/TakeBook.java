@@ -14,8 +14,8 @@ import org.example.kutubxona.repo.UserRepo;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet(name = "booking", value = "/BookTake")
-public class Booking extends HttpServlet {
+@WebServlet(name = "booking", value = "/take/book")
+public class TakeBook extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserRepo userRepo=new UserRepo();

@@ -18,7 +18,7 @@ public class UserRepo extends BaseRepo<User, UUID>{
 
 
     public static List<User> findAllForUserPagination(int page, String search) {
-        TypedQuery<User> typedQuery = entityManager.createQuery("SELECT t FROM User t WHERE t.firstName ILIKE :search or t.lastName ilike :search", User.class);
+        TypedQuery<User> typedQuery = entityManager.createQuery("SELECT t FROM User t WHERE t.firstName ILIKE :search or t.lastName ilike :search order by firstName", User.class);
         typedQuery.setParameter("search", "%" + search + "%");
         typedQuery.setMaxResults(3);
         typedQuery.setFirstResult((page - 1) * 3);
