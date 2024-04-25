@@ -14,18 +14,17 @@ import org.example.kutubxona.repo.UserRepo;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet(name = "booking", value = "/take/book")
-public class TakeBook extends HttpServlet {
+@WebServlet(name ="ButtonIn", value = "/changesIn")
+public class InButton extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserRepo userRepo=new UserRepo();
-        BookRepo bookRepo=new BookRepo();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID chosenUserId = UUID.fromString(req.getParameter("userId"));
-        UUID chosenBookId = UUID.fromString(req.getParameter("chosenBook"));
+        UserRepo userRepo=new UserRepo();
         User user = userRepo.findById(chosenUserId);
-        Book chosenBook = bookRepo.findById(chosenBookId);
-        user.setStatus(Status.OUT);
-        user.setBook(chosenBook);
-        resp.sendRedirect("/admin/admin.jsp");
+        if(user.getStatus().equals(Status.OFF)){
+        resp.sendRedirect("/admin/book.jsp?userId"+chosenUserId);
+        }else if (user.getStatus().equals(Status.OUT)){
+            resp.sendRedirect(req.getHeader("referer"));
+        }
     }
 }

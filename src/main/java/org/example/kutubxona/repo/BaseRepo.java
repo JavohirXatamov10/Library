@@ -35,7 +35,10 @@ public class BaseRepo<T, I> {
 //        return typedQuery.getResultList();// changes
     }
     public T findById(I id) {
-        return entityManager.find(persistenceClass, id);
+        begin();
+        T t = entityManager.find(persistenceClass, id);
+        commit();
+        return t;
     }
     public void delete(I id) {
         begin();
@@ -43,5 +46,6 @@ public class BaseRepo<T, I> {
         entityManager.remove(t);
         commit();
     }
+
 }
 

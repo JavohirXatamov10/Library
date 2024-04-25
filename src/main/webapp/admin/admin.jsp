@@ -2,6 +2,7 @@
 <%@ page import="org.example.kutubxona.entity.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Objects" %>
+<%@ page import="org.example.kutubxona.entity.enums.Status" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
     int totalPageAmount=UserRepo.totalPageAmount(search);
     int p = Integer.parseInt(Objects.requireNonNullElse(request.getParameter("page"), "1"));
     UserRepo userRepo = new UserRepo();
-    //List<User> users = userRepo.findAll(p,search);//changes
+    //List<User> users = userRepo.findAll(p,search);
     List<User>users=UserRepo.findAllForUserPagination(p,search);
 %>
 <nav class="navbar navbar-inverse">
@@ -29,7 +30,7 @@
                         <input type="text" class="form-control" placeholder="Search" name="search" value="<%=search%>">
                     </div>
                         <button type="submit" class="btn btn-default">Search</button>
-                </form>
+                    </form>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right my-3">
@@ -38,7 +39,7 @@
         </ul>
     </div>
 </nav>
-    <div class="row">
+<div class="row">
         <div class="col-md-10 offset2">
             <table class="table table-striped m-2">
                 <thead>
@@ -48,6 +49,7 @@
                     <th>Book name</th>
                     <th>Action</th>
                     <th>Changes</th>
+
                     <th>Function</th>
                 </tr>
                 </thead>
@@ -59,8 +61,13 @@
                     <td><%=user.getBookName()%></td>
                     <td><a href="../admin/book.jsp?userId=<%= user.getId()%>" class="btn btn-lg">Book</a></td>
                     <td>
-                        <a href="/changes?userId=<%= user.getId()%>" class="btn btn-success">OUT</a>
-                        <a href="/change?userId=<%= user.getId()%>" class="btn btn-info">IN</a>
+                        <a href="/changesOut?userId=<%= user.getId()%>" class="btn btn-success">OUT</a>
+                        <%if(user.getStatus().equals(Status.OUT)){%>
+                        <a href="#" class="disabled btn btn-info">IN</a>
+                        <%}else{%>
+                        <a href="/admin/book.jsp?userId=<%= user.getId()%>" class="btn btn-info">IN</a>
+                        <%}%>
+
                     </td>
                     <td>
                         <a href="/deleteUser?userId=<%= user.getId()%>" class="btn btn-danger">Delete</a>
@@ -70,27 +77,29 @@
                 </tbody>
             </table>
         </div>
-       </div>
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-12"> <!-- Full-width column -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <%if (p!=1){%>
-                                <li class="page-item"><a class="page-link" href="?page=<%=p-1%>&search<%=search%>">Previous</a></li>
-                            <%}%>
-                            <%for (int i = 1; i <=totalPageAmount ; i++) { %>
+    </div>
 
-                            <li class="page-item  <%=p==i ? "active": "" %>"><a class="page-link" href="?page=<%=i%>&search<%=search%>"><%=i%></a></li>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12"> <!-- Full-width column -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <%if (p!=1){%>
+                        <li class="page-item"><a class="page-link" href="?page=<%=p-1%>&search<%=search%>">Previous</a></li>
+                    <%}%>
+                    <%for (int i = 1; i <=totalPageAmount ; i++) { %>
 
-                            <%}%>
-                            <%if (p!=totalPageAmount){%>
-                            <li class="page-item"><a class="page-link" href="?page=<%=p+1%>&search<%=search%>">Next</a></li>
-                            <%}%>
-                   </ul>
-               </nav>
-            </div>
-            </div>
+                    <li class="page-item  <%=p==i ? "active": "" %>"><a class="page-link" href="?page=<%=i%>&search<%=search%>"><%=i%></a></li>
+
+                    <%}%>
+                    <%if (p!=totalPageAmount){%>
+                    <li class="page-item"><a class="page-link" href="?page=<%=p+1%>&search<%=search%>">Next</a></li>
+                    <%}%>
+
+                </ul>
+            </nav>
         </div>
+    </div>
+</div>
 </body>
 </html>

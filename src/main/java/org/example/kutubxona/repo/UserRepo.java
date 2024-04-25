@@ -1,10 +1,7 @@
 package org.example.kutubxona.repo;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import org.example.kutubxona.entity.Book;
 import org.example.kutubxona.entity.User;
-import org.example.kutubxona.entity.enums.Status;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,5 +20,11 @@ public class UserRepo extends BaseRepo<User, UUID>{
         typedQuery.setMaxResults(3);
         typedQuery.setFirstResult((page - 1) * 3);
         return typedQuery.getResultList();
+    }
+
+    public static void makeChanges(User chosenUser) {
+        begin();
+
+        commit();
     }
 }
