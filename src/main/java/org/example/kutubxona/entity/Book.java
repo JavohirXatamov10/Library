@@ -24,9 +24,8 @@ public class Book {
     private String name;
     @NotBlank
     private String authorName;
-//    @Builder
-//
-//    public Book(UUID id, @NotBlank String name,String authorName) {
+//    @Builder // Bookni baseEntity bilan ishlatganda id topilmadi.uni publik qilish kerak ekan
+//   public Book(UUID id, @NotBlank String name,String authorName) {
 //        super(id, name);
 //        this.authorName=authorName;
 //    }

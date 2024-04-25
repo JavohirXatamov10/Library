@@ -15,17 +15,10 @@ import static org.example.kutubxona.repo.BaseRepo.entityManager;
 
 @WebListener
 public class DBConfig implements ServletContextListener {
-
-
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-//        entityManagerFactory= Persistence.createEntityManagerFactory("default");
-
-        entityManagerFactory=Persistence.createEntityManagerFactory("library");
-        entityManager=entityManagerFactory.createEntityManager();
         //initData();
         ServletContextListener.super.contextInitialized(sce);
-
     }
     private void initData() {
         entityManager.getTransaction().begin();
@@ -34,7 +27,6 @@ public class DBConfig implements ServletContextListener {
                 .authorName("Abdulla Qodiriy")
                 .build();
         entityManager.persist(book1);
-
         Book book2= Book.builder()
                 .name("Mehrobdan chayon")
                 .authorName("Abdulla Qodiriy")
@@ -50,13 +42,10 @@ public class DBConfig implements ServletContextListener {
                 .authorName("Xudoyberdi to`xtaboyev")
                 .build();
         entityManager.persist(book4);
-
-
         Admin admin= Admin.builder()
                 .name("Javohir")
                 .email("a@gmail.com")
                 .password("root123")
-
                 .build();
         entityManager.persist(admin);
         entityManager.getTransaction().commit();

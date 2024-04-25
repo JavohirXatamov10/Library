@@ -48,49 +48,22 @@ public class CheckLoginAndSendEmailmessage extends HttpServlet {
             properties.put("mail.smtp.port", "465");
             properties.put("mail.smtp.ssl.enable", "true");
             properties.put("mail.smtp.auth", "true");
-
             String libraryEmail = "xatamovjavohir70@gmail.com"; // Replace with your Gmail address
             String libraryPassword = "xatdvcofixiztxzu"; // Replace with your Gmail password or app-specific password
-
             Session session = Session.getInstance(properties, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(libraryEmail, libraryPassword);
                 }
             });
-
             Message message = new MimeMessage(session);
             message.setSubject("Your code: ");
             message.setText(String.valueOf(random));
             message.setFrom(new InternetAddress(libraryEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(sentToEmail));
-
             Transport.send(message);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-//            try {
-//                Properties properties = new Properties();
-//                properties.put("mail.smtp.host", "smtp.gmail.com");
-//                properties.put("mail.smtp.port", "465");
-//                properties.put("mail.smtp.ssl.enable", "true");
-//                properties.put("mail.smtp.auth", "true");
-//                String libraryEmail = "geroyboy70@gmail.com";
-//                String libraryPassword = "ezpuswzxlzajklyt";
-//                Session session = Session.getInstance(properties, new Authenticator() {
-//                    @Override
-//                    protected PasswordAuthentication getPasswordAuthentication() {
-//                        return new PasswordAuthentication(libraryEmail, libraryPassword);
-//                    }
-//                });
-//                Message message = new MimeMessage(session);
-//                message.setSubject("Your code: ");
-//                message.setText(String.valueOf(random));
-//                message.setFrom(new InternetAddress("geroyboy70@gmail.com"));
-//                message.setRecipient(Message.RecipientType.TO, new InternetAddress(sentToEmail));
-//                Transport.send(message);
-//            }catch (Exception e){
-//                throw new RuntimeException(e);
-//            }
     }
 }

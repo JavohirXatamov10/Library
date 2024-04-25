@@ -17,24 +17,22 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-
-    <h2>Add User</h2>
-    <form action="/addUser" method="post">
-        <div class="form-group">
-            <label for="firstName">First Name:</label>
-            <input name="firstName" type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last Name:</label>
-            <input name="lastName" type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+                    <h2>Add User</h2>
+                    <form action="/addUser" method="post">
+                        <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input name="firstName" type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input name="lastName" type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div>
-
 </body>
 </html>

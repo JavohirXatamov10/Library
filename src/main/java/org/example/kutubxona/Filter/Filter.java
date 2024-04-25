@@ -1,5 +1,4 @@
 package org.example.kutubxona.Filter;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -18,14 +17,11 @@ public class Filter{ //implements jakarta.servlet.Filter {
 //    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 //        HttpServletRequest req = (HttpServletRequest) servletRequest;
 //        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-//
 //        Admin currentUser = (Admin)req.getSession().getAttribute("currentUser");
-//
 //        if (currentUser!=null){
 //            filterChain.doFilter(req,resp);
 //            return;
 //        }
 //        resp.sendRedirect("/404");
-//
 //    }
 }

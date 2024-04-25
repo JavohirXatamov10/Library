@@ -29,7 +29,7 @@
                         <input type="text" class="form-control" placeholder="Search" name="search" value="<%=search%>">
                     </div>
                         <button type="submit" class="btn btn-default">Search</button>
-                    </form>
+                </form>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right my-3">
@@ -38,7 +38,7 @@
         </ul>
     </div>
 </nav>
-<div class="row">
+    <div class="row">
         <div class="col-md-10 offset2">
             <table class="table table-striped m-2">
                 <thead>
@@ -48,7 +48,6 @@
                     <th>Book name</th>
                     <th>Action</th>
                     <th>Changes</th>
-
                     <th>Function</th>
                 </tr>
                 </thead>
@@ -71,29 +70,27 @@
                 </tbody>
             </table>
         </div>
-    </div>
+       </div>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-12"> <!-- Full-width column -->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <%if (p!=1){%>
+                                <li class="page-item"><a class="page-link" href="?page=<%=p-1%>&search<%=search%>">Previous</a></li>
+                            <%}%>
+                            <%for (int i = 1; i <=totalPageAmount ; i++) { %>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-12"> <!-- Full-width column -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <%if (p!=1){%>
-                        <li class="page-item"><a class="page-link" href="?page=<%=p-1%>&search<%=search%>">Previous</a></li>
-                    <%}%>
-                    <%for (int i = 1; i <=totalPageAmount ; i++) { %>
+                            <li class="page-item  <%=p==i ? "active": "" %>"><a class="page-link" href="?page=<%=i%>&search<%=search%>"><%=i%></a></li>
 
-                    <li class="page-item  <%=p==i ? "active": "" %>"><a class="page-link" href="?page=<%=i%>&search<%=search%>"><%=i%></a></li>
-
-                    <%}%>
-                    <%if (p!=totalPageAmount){%>
-                    <li class="page-item"><a class="page-link" href="?page=<%=p+1%>&search<%=search%>">Next</a></li>
-                    <%}%>
-
-                </ul>
-            </nav>
+                            <%}%>
+                            <%if (p!=totalPageAmount){%>
+                            <li class="page-item"><a class="page-link" href="?page=<%=p+1%>&search<%=search%>">Next</a></li>
+                            <%}%>
+                   </ul>
+               </nav>
+            </div>
+            </div>
         </div>
-    </div>
-</div>
 </body>
 </html>

@@ -20,7 +20,6 @@ import static org.example.kutubxona.repo.BaseRepo.entityManager;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -32,11 +31,8 @@ public class User {
     private Book book;
     @Enumerated(EnumType.STRING)
     private Status status;
-
-
     public Object getBookName() {
         if (book != null) {
-            // Assuming Book entity has a method getName() to retrieve its name
             return book.getName();
         } else {
             return "No book";
