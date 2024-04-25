@@ -21,11 +21,11 @@ public class BaseRepo<T, I> {
         this.persistenceClass = (Class<T>) parameterizedType.getActualTypeArguments()[0];
     }
 
-    public void begin() {
+    public  static void  begin() {
         entityManager.getTransaction().begin();
     }
 
-    public void commit() {
+    public static void commit() {
         entityManager.getTransaction().commit();
     }
 
@@ -35,13 +35,13 @@ public class BaseRepo<T, I> {
         commit();
     }
 
-    public List<T> findAll(int page, String search) {
-//        return entityManager.createQuery("from " + persistenceClass.getSimpleName(), persistenceClass).getResultList();
-        TypedQuery<T> typedQuery = entityManager.createQuery("SELECT t FROM " + persistenceClass.getSimpleName() + " t WHERE t.firstName ILIKE :search or t.lastName ilike :search", persistenceClass);
-        typedQuery.setParameter("search", "%" + search + "%");
-        typedQuery.setMaxResults(3);
-        typedQuery.setFirstResult((page - 1) * 3);
-        return typedQuery.getResultList();
+    public List<T> findAll() {
+      return entityManager.createQuery("from " + persistenceClass.getSimpleName(), persistenceClass).getResultList();
+//        TypedQuery<T> typedQuery = entityManager.createQuery("SELECT t FROM " + persistenceClass.getSimpleName() + " t WHERE t.firstName ILIKE :search or t.lastName ilike :search", persistenceClass);
+//        typedQuery.setParameter("search", "%" + search + "%");
+//        typedQuery.setMaxResults(3);
+//        typedQuery.setFirstResult((page - 1) * 3);
+//        return typedQuery.getResultList();// changes
     }
 
     public T findById(I id) {

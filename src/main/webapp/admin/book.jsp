@@ -1,6 +1,10 @@
         <%@ page import="java.util.UUID" %>
 <%@ page import="org.example.kutubxona.repo.UserRepo" %>
-<%@ page import="org.example.kutubxona.entity.User" %><%--
+<%@ page import="org.example.kutubxona.entity.User" %>
+        <%@ page import="org.example.kutubxona.repo.BookRepo" %>
+        <%@ page import="org.example.kutubxona.entity.Book" %>
+        <%@ page import="java.util.List" %>
+        <%@ page import="org.example.kutubxona.entity.enums.Status" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 4/24/2024
@@ -11,6 +15,7 @@
 <html>
 <head>
     <title>Booking</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
 </head>
 <body>
 <%
@@ -25,13 +30,32 @@
         } catch (IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
-    } else {
-        // Handle the case where userId parameter is missing or empty
-        // Log the error or show an appropriate message
     }
+    BookRepo bookRepo=new BookRepo();
+    List<Book> books = bookRepo.findAll();
 %>
 
-<h1><%=user.getFirstName()%></h1>
+<div class="row mt-6">
+    <div class="col-4 offset-4">
+        <div class="card p-2">
+            <h1 class="text-center text-muted">Booking</h1>
+            <h5 class="text-center"><%=user.getFirstName()%></h5>
+            <%if(user.getStatus().equals(Status.OFF)){%>
+            <form action="/BookTake" method="post">
+                <input value="<%=user.getId()%>" name="userId" type="hidden">
+                <select name="chosenBook" class="form-control mb-3">
+                    <%for (Book book : books) {%>
+                    <option value="<%=book.getId()%>"><%=book.getName()%></option>
+                    <%}%>
+                </select>
+                <button class="btn btn-dark w-100">save</button>
+            </form>
+                <% } else if (user.getStatus().equals(Status.IN)){%>
+            <%}%>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>

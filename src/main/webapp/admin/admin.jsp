@@ -17,7 +17,8 @@
     int totalPageAmount=UserRepo.totalPageAmount(search);
     int p = Integer.parseInt(Objects.requireNonNullElse(request.getParameter("page"), "1"));
     UserRepo userRepo = new UserRepo();
-    List<User> users = userRepo.findAll(p,search);
+    //List<User> users = userRepo.findAll(p,search);//changes
+    List<User>users=UserRepo.findAllForUserPagination(p,search);
 %>
 <nav class="navbar navbar-inverse">
     <div class="container">
