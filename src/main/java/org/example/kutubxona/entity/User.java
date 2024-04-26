@@ -11,7 +11,6 @@ import org.example.kutubxona.entity.enums.Status;
 import java.util.List;
 import java.util.UUID;
 
-import static org.example.kutubxona.repo.BaseRepo.entityManager;
 
 @Data
 @AllArgsConstructor

@@ -21,10 +21,12 @@ public class InButton extends HttpServlet {
         UUID chosenUserId = UUID.fromString(req.getParameter("userId"));
         UserRepo userRepo=new UserRepo();
         User user = userRepo.findById(chosenUserId);
-        if(user.getStatus().equals(Status.OFF)){
-        resp.sendRedirect("/admin/book.jsp?userId"+chosenUserId);
-        }else if (user.getStatus().equals(Status.OUT)){
-            resp.sendRedirect(req.getHeader("referer"));
-        }
+        user.setStatus(Status.IN);
+        resp.sendRedirect(req.getHeader("referer"));
+//        if(user.getStatus().equals(Status.OFF)){
+//        resp.sendRedirect("/admin/book.jsp?userId"+chosenUserId);
+//        }else if (user.getStatus().equals(Status.IN)){
+//            resp.sendRedirect(req.getHeader("referer"));
+//        }
     }
 }

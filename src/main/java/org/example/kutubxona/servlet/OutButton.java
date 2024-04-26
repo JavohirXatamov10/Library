@@ -18,10 +18,10 @@ public class OutButton extends HttpServlet {
         UUID chosenUserId = UUID.fromString(req.getParameter("userId"));
         UserRepo userRepo=new UserRepo();
         User chosenUser = userRepo.findById(chosenUserId);
-        if (!chosenUser.getStatus().equals(Status.OFF)){
+        if (chosenUser.getStatus().equals(Status.OUT)){
             resp.sendRedirect("/admin/book.jsp?userId="+chosenUserId);
         }else{
-            resp.sendRedirect("/admin/admin.jsp");
+            resp.sendRedirect(req.getHeader("referer"));
         }
     }
 }

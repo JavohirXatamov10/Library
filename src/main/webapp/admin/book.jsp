@@ -41,8 +41,8 @@
             <div class="col-4 offset-4">
                 <div class="card p-2">
                     <h1 class="text-center text-muted">Booking</h1>
-                    <h5 class="text-center"><%=user.getFirstName()%></h5>
-                    <%if(user.getStatus().equals(Status.OFF)){%>
+                   <h5><%=user.getFirstName() +" iltimos quyidagilardan birini tanlang:"%></h5>
+                    <%if(user.getStatus().equals(Status.OFF)|| user.getStatus().equals(Status.IN)){%>
                     <form action="/take/book" method="post">
                         <input value="<%=user.getId()%>" name="userId" type="hidden">
                         <select name="chosenBook" class="form-control mb-3">

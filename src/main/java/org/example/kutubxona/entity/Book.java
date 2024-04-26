@@ -9,7 +9,6 @@ import lombok.*;
 
 import java.util.UUID;
 
-import static org.example.kutubxona.repo.BaseRepo.entityManager;
 
 //@EqualsAndHashCode(callSuper = true)
 @Data

@@ -12,7 +12,7 @@ import org.example.kutubxona.entity.User;
 
 import java.io.IOException;
 //@WebFilter(filterName = "filter", urlPatterns = "/admin/*")
-public class Filter{ //implements jakarta.servlet.Filter {
+public class Filter {//implements jakarta.servlet.Filter {
 //    @Override
 //    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 //        HttpServletRequest req = (HttpServletRequest) servletRequest;

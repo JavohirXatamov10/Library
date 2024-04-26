@@ -1,14 +1,16 @@
 package org.example.kutubxona.repo;
 
 import jakarta.persistence.TypedQuery;
+import org.example.kutubxona.entity.Book;
 import org.example.kutubxona.entity.User;
+import org.example.kutubxona.entity.enums.Status;
 
 import java.util.List;
 import java.util.UUID;
 
 public class UserRepo extends BaseRepo<User, UUID>{
     public static int totalPageAmount(String search) {
-        TypedQuery<Long> query = entityManager.createQuery("select count(t) from User t where t.firstName ilike : search", Long.class);
+        TypedQuery<Long> query = entityManager.createQuery("select count(t) from User t where t.firstName ILIKE : search or t.lastName ILIKE : search", Long.class);
         query.setParameter("search","%"+search+"%");
         return (int) Math.ceil(query.getSingleResult()/3.0);
     }
@@ -22,9 +24,10 @@ public class UserRepo extends BaseRepo<User, UUID>{
         return typedQuery.getResultList();
     }
 
-    public static void makeChanges(User chosenUser) {
+    public static void makeChanges(User chosenUser, Book chosenBook) {
         begin();
-
+        chosenUser.setBook(chosenBook);
+        chosenUser.setStatus(Status.OUT);
         commit();
     }
 }

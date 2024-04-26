@@ -17,7 +17,6 @@
     String search = Objects.requireNonNullElse(request.getParameter("search"),"");
     int totalPageAmount=UserRepo.totalPageAmount(search);
     int p = Integer.parseInt(Objects.requireNonNullElse(request.getParameter("page"), "1"));
-    UserRepo userRepo = new UserRepo();
     //List<User> users = userRepo.findAll(p,search);
     List<User>users=UserRepo.findAllForUserPagination(p,search);
 %>
@@ -59,18 +58,28 @@
                     <td><%=user.getFirstName()%></td>
                     <td><%=user.getLastName()%></td>
                     <td><%=user.getBookName()%></td>
-                    <td><a href="../admin/book.jsp?userId=<%= user.getId()%>" class="btn btn-lg">Book</a></td>
                     <td>
-                        <a href="/changesOut?userId=<%= user.getId()%>" class="btn btn-success">OUT</a>
-                        <%if(user.getStatus().equals(Status.OUT)){%>
-                        <a href="#" class="disabled btn btn-info">IN</a>
-                        <%}else{%>
-                        <a href="/admin/book.jsp?userId=<%= user.getId()%>" class="btn btn-info">IN</a>
+                    <%if (user.getStatus().equals(Status.OUT)){%>
+                        <a href="/admin/book.jsp?userId=<%= user.getId()%>" class="btn btn-danger">Book</a>
+                        <%} else {%>
+                        <a href="/admin/book.jsp?userId=<%= user.getId()%>" class="btn btn-success">Book</a>
                         <%}%>
+                    </td>
 
+                    <td>
+                        <%if (user.getStatus().equals(Status.OUT) ) {%>
+                             <a href="/changesOut?userId=<%= user.getId()%>" class="btn btn-info">Out</a>
+                        <%} else {%>
+                        <a href="/changesOut?userId=<%= user.getId()%>" class="btn btn-success">Out</a>
+                        <%}%>
+                        <%if(user.getStatus().equals(Status.OFF)){%>
+                        <a href="/changesIn?userId=<%= user.getId()%>" class="btn btn-success">IN</a>
+                        <%}else{%>
+                        <a href="#" class="disabled btn btn-danger">IN</a>
+                        <%}%>
                     </td>
                     <td>
-                        <a href="/deleteUser?userId=<%= user.getId()%>" class="btn btn-danger">Delete</a>
+                        <a href="/deleteUser?userId=<%= user.getId()%>" class="btn btn-default">Delete</a>
                     </td>
                 </tr>
                 <%}%>
@@ -88,14 +97,11 @@
                         <li class="page-item"><a class="page-link" href="?page=<%=p-1%>&search<%=search%>">Previous</a></li>
                     <%}%>
                     <%for (int i = 1; i <=totalPageAmount ; i++) { %>
-
                     <li class="page-item  <%=p==i ? "active": "" %>"><a class="page-link" href="?page=<%=i%>&search<%=search%>"><%=i%></a></li>
-
                     <%}%>
                     <%if (p!=totalPageAmount){%>
                     <li class="page-item"><a class="page-link" href="?page=<%=p+1%>&search<%=search%>">Next</a></li>
                     <%}%>
-
                 </ul>
             </nav>
         </div>

@@ -24,8 +24,9 @@ public class TakeBook extends HttpServlet {
         UUID chosenBookId = UUID.fromString(req.getParameter("chosenBook"));
         User user = userRepo.findById(chosenUserId);
         Book chosenBook = bookRepo.findById(chosenBookId);
-        user.setStatus(Status.OUT);
-        user.setBook(chosenBook);
+        UserRepo.makeChanges(user,chosenBook);
+//        user.setStatus(Status.OUT);
+        //user.setBook(chosenBook);
         resp.sendRedirect("/admin/admin.jsp");
     }
 }
